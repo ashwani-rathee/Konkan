@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = Perspective
+CurrentModule = Konkan
 ```
 
-# Perspective
+# Konkan
 
-Documentation for [Perspective](https://github.com/ashwani-rathee/Perspective.jl).
+Documentation for [Konkan](https://github.com/ashwani-rathee/Konkan.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [Perspective]
+Modules = [Konkan]
 ```

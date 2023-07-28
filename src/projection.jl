@@ -8,7 +8,7 @@ Returns point in the image plane given the object point in world and focal lengt
 Pinhole projection is used here which is used to concentrate the image rays avoiding 
 muddled up image on screen without any pinhole.
 
-# Equation of Perspective Projection 
+# Equation of Konkan Projection 
 
 rone = rzero * focallength / zzero
 
@@ -23,7 +23,7 @@ rone = rzero * focallength / zzero
 
 # Example
 ```julia-repl
-julia> using Perspective
+julia> using Konkan
 
 julia> img_point = image_point((5.0,5.0,5.0), -5.0)
 (-5.0, -5.0, -5.0)
@@ -48,7 +48,7 @@ focal length is given.
 
 # Example
 ```julia-repl
-julia> using Perspective
+julia> using Konkan
 
 julia> obj_points = map((x,y)->(x, y, round(exp(x^2+y^2), digits=2)), -1.0:0.1:1.0, -1.0:0.1:1.0)
 

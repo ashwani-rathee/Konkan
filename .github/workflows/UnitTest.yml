@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-    tags: ['*']
+    tags: '*'
   pull_request:
 concurrency:
   # Skip intermediate builds: always.
@@ -19,14 +19,21 @@ jobs:
       matrix:
         version:
           - '1.6'
-          - '1.9'
+          - '1'
           - 'nightly'
         os:
           - ubuntu-latest
         arch:
           - x64
+        include:
+          - os: windows-latest
+            version: '1'
+            arch: x64
+          - os: macOS-latest
+            version: '1'
+            arch: x64
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.version }}
@@ -34,30 +41,24 @@ jobs:
       - uses: julia-actions/cache@v1
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
-  docs:
-    name: Documentation
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v2
+        with:
+          files: lcov.info
+  multithreads:
+    name: Julia (threads) 1 - ubuntu-latest - x64 - ${{ github.event_name }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      statuses: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
         with:
           version: '1'
-      - name: Configure doc environment
-        run: |
-          julia --project=docs/ -e '
-            using Pkg
-            Pkg.develop(PackageSpec(path=pwd()))
-            Pkg.instantiate()'
+          arch: 'x64'
+      - uses: julia-actions/cache@v1
       - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-docdeploy@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          julia --project=docs -e '
-            using Documenter: DocMeta, doctest
-            using Perspective
-            DocMeta.setdocmeta!(Perspective, :DocTestSetup, :(using Perspective); recursive=true)
-            doctest(Perspective)'
+      - name: run test
+        run: julia --project --code-coverage -t4 -e 'using Pkg; Pkg.test()'
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v2
+        with:
+          files: lcov.info

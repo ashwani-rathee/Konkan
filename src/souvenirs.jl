@@ -16,7 +16,7 @@ the pinhole camera used.
 
 # Example
 ```julia-repl
-julia> using Perspective
+julia> using Konkan
 
 julia> obj_points = map((x,y)->(x, y, round(exp(x^2+y^2), digits=2)), -1.0:0.1:1.0, -1.0:0.1:1.0)
 
