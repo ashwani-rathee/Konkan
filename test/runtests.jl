@@ -1,4 +1,4 @@
-using Perspective
+using Konkan
 using Test
 
 include("projection.jl")

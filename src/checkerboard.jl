@@ -9,7 +9,7 @@ Returns number of innercorners in a checkerboard of size length * width
 
 # Example
 ```julia-repl
-julia> using Perspective
+julia> using Konkan
 
 julia> innercorners(5, 5)
 16
@@ -30,7 +30,7 @@ Returns all corners in a checkerboard of size length * width
 
 # Example
 ```julia-repl
-julia> using Perspective
+julia> using Konkan
 
 julia> allcorners(5, 5)
 36

@@ -1,25 +1,14 @@
-using Perspective
+push!(LOAD_PATH,"../src/")
+using Konkan
 using Documenter
 
-DocMeta.setdocmeta!(Perspective, :DocTestSetup, :(using Perspective); recursive=true)
+DocMeta.setdocmeta!(Konkan, :DocTestSetup, :(using Konkan); recursive=true)
 
 makedocs(;
-    modules=[Perspective],
-    authors="ashwani rathee <ab669522@gmail.com> and contributors",
-    repo="https://github.com/ashwani-rathee/Perspective.jl/blob/{commit}{path}#{line}",
-    sitename="Perspective.jl",
-    format=Documenter.HTML(;
-        prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://ashwani-rathee.github.io/Perspective.jl",
-        edit_link="master",
-        assets=String[],
-    ),
-    pages=[
-        "Home" => "index.md",
-    ],
+    modules=[Konkan],
+    sitename="Konkan.jl",
 )
 
 deploydocs(;
-    repo="github.com/ashwani-rathee/Perspective.jl",
-    devbranch="master",
+    repo="github.com/ashwani-rathee/Konkan.jl",
 )
